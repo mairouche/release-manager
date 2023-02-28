@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { EventStoreProvider } from './model/provider/event-store.provider';
+import { EventStoreProvider } from './provider/event-store.provider';
 
 @Module({
   imports: [ConfigModule],

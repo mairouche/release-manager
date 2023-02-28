@@ -1,6 +1,3 @@
-export interface Snapshot {
-  id: string;
-  name: string;
-  description: string;
-  creationDate: string;
-}
+import { Version } from './version.domain';
+
+export interface Snapshot extends Version {}

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { marshall } from '@aws-sdk/util-dynamodb';
 import { DynamoDB } from '@aws-sdk/client-dynamodb';
-import { EventModel } from '../event.model';
+import { EventModel } from '../model/event.model';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
@@ -17,10 +17,11 @@ export class EventStoreProvider<T> {
     this.ddb = new DynamoDB({ region: this.awsRegion });
   }
 
-  async emitEvent(data: T): Promise<void> {
+  async emitEvent(data: T, operation: string): Promise<void> {
     let event: EventModel = {
       eventId: uuidv4(),
       eventDate: new Date().toISOString(),
+      eventOperation: operation,
       payload: JSON.stringify(data),
     };
     this.ddb.putItem({
