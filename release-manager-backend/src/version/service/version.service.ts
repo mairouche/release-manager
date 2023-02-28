@@ -15,13 +15,13 @@ export class VersionService {
   async create(snapshot: Snapshot): Promise<Snapshot> {
     snapshot.id = uuidv4();
     snapshot.creationDate = new Date().toISOString();
-    await this.eventStoreProvider.emitEvent(snapshot, Operations.SNAPSHOT);
+    await this.eventStoreProvider.persistEvent(snapshot, Operations.SNAPSHOT);
     return snapshot;
   }
 
   async promote(release: Release): Promise<Release> {
     release.releaseDate = new Date().toISOString();
-    await this.eventStoreProvider.emitEvent(release, Operations.PROMOTE);
+    await this.eventStoreProvider.persistEvent(release, Operations.PROMOTE);
     return release;
   }
 }

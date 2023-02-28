@@ -17,7 +17,7 @@ export class EventStoreProvider<T> {
     this.ddb = new DynamoDB({ region: this.awsRegion });
   }
 
-  async emitEvent(data: T, operation: string): Promise<void> {
+  async persistEvent(data: T, operation: string): Promise<void> {
     let event: EventModel = {
       eventId: uuidv4(),
       eventDate: new Date().toISOString(),
